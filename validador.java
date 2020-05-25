@@ -129,4 +129,10 @@ public class validador {
         return true;
     }
     
+    public boolean validaInstanciaPhi(PhiInstance instancia){
+        if (instancia.valor.length() != PhiInstance.SIZE_INSTANCE) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -27,6 +27,8 @@ public class PhiInstance {
     public static final int MAX_EPOCAS = 2047;
     public static final int MAX_LR = 199;
     public static final int MAX_MOMENTUM = 199;
+
+    // Valor de la instancia
     public BitSet valor = new BitSet(35);
 
     // Maneja litte endian
