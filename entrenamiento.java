@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.BitSet;
+
 /**
  * Main Class para el entrenamiento don algoritmos geneticos
  */
@@ -18,6 +19,7 @@ class entrenamiento {
     /**
      * Funcion que genera una Poblacion de N individuos 
      * se almacena en un ArrayList
+     * La poblacion generada es totalmente ale
      * @param cantidadIndividuos
      * @return
      */

@@ -10,7 +10,23 @@ import java.util.BitSet;
  * 
  */
 public class PhiInstance {
-    public static final int SIZE_INSTANCE = 35;
+    //
+    // Longitud de los bits
+    //
+    public static final int SIZE_INSTANCE = 35;//35 bits
+    public static final int SIZE_NEURONA = 5;//longtitud de bits
+    public static final int SIZE_CAPAS = 3;
+    public static final int SIZE_EPOCAS = 11;
+    public static final int SIZE_LR = 8;
+    public static final int SIZE_MOMENTUM = 8;
+    //
+    // Valores maximos binarios posibles
+    //
+    public static final int MAX_NEURONA = 23;//Valor maximo en bits
+    public static final int MAX_CAPAS = 5;
+    public static final int MAX_EPOCAS = 2047;
+    public static final int MAX_LR = 199;
+    public static final int MAX_MOMENTUM = 199;
     public BitSet valor = new BitSet(35);
 
     // Maneja litte endian
