@@ -26,9 +26,9 @@ public class RNA{
      * @param learningRate
      * @param momentum
      * @param kfolds
-     * @return
+     * @return Float porcentaje de clasificacion
      */
-    public String entrenar(final String neuronasCapas, final int epocas, final Float learningRate, final Float momentum,
+    public Float entrenar(final String neuronasCapas, final int epocas, final Float learningRate, final Float momentum,
             final int kfolds) {
         String resultados = "";
         try {
@@ -66,8 +66,56 @@ public class RNA{
         } catch (final Exception ex) {
             ex.printStackTrace();
         }
+
         // regresa los resultados
-        return getPorcentaje(resultados);
+        return Float.parseFloat( getPorcentaje(resultados) );
+    }
+
+    /**
+     * Funcion que entrena una red neuronal
+     * @param parametros en Binario
+     * @return Float porcentaje de clasificacion
+     */
+    public Float entrenar(final PhiInstance parametros) {
+        String resultados = "";
+        try {
+            final FileReader trainreader = new FileReader(this.dataBaseName);
+            final FileReader testreader = new FileReader(this.dataBaseName);
+
+            final Instances train = new Instances(trainreader);
+            final Instances test = new Instances(testreader);
+            train.setClassIndex(train.numAttributes() - 1);
+            test.setClassIndex(test.numAttributes() - 1);
+
+            final MultilayerPerceptron mlp = new MultilayerPerceptron();
+            // mlp.setOptions(Utils.splitOptions("-L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H
+            // 4"));
+
+            // Setting Parameters
+            mlp.setHiddenLayers(neuronasCapas);// Neuronas, Capas
+            mlp.setTrainingTime(epocas);// Epocas
+            mlp.setLearningRate(learningRate);// LearningRate
+            mlp.setMomentum(momentum);// Momentum
+
+            // Entrenamiento
+            mlp.buildClassifier(train);
+
+            // Evalua resultados
+            final Evaluation eval = new Evaluation(train);
+
+            // Validacion cruzada
+            eval.crossValidateModel(mlp, train, kfolds, new Random(1));
+
+            trainreader.close();
+            testreader.close();
+
+            resultados = "" + eval.toSummaryString("", false);
+        } catch (final Exception ex) {
+            ex.printStackTrace();
+        }
+
+        // regresa los resultados
+        return Float.parseFloat( getPorcentaje(resultados) );
     }
 
     /**

@@ -12,8 +12,13 @@ class entrenamiento {
      * @param args
      */
     public static void main(String args[]) {
+        RNA naturalNetwork = new RNA();
+
         //Generar una poblacion
         poblacion = generarPoblacion(100);
+        for (PhiInstance instancia : poblacion) {
+            instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
+        }
     }
 
     /**

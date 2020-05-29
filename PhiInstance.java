@@ -31,6 +31,9 @@ public class PhiInstance {
     // Valor de la instancia
     public BitSet valor = new BitSet(35);
 
+    //Valor Fitness
+    public Float valorFitness;
+
     // Maneja litte endian
     /**
      * 2a0|2a1|2a2|2a4 
