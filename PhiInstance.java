@@ -213,6 +213,14 @@ public class PhiInstance {
         return new Float(((valor*400)/199)/100);
     }
     
+    public String toString(){
+        String neuronasCapas = new RNA("a.arff").capas(this.getNeuronas(), this.getCapas());
+        int epocas = this.getEpocas();
+        Float learningRate = this.getLR();
+        Float momentum = this.getMomentum();
+        int kfolds = 5;
+        return "n/c: "+neuronasCapas+" e: "+epocas+" lr: "+learningRate+" m: "+momentum;
+    }
 
     /**
      * Retorna en forma String 01
