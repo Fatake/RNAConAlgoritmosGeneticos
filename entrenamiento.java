@@ -15,11 +15,11 @@ class entrenamiento {
         RNA naturalNetwork = new RNA("ForestFire.arff");
 
         //Generar una poblacion
-        poblacion = generarPoblacion(100);
+        poblacion = generarPoblacion(10);
 
         //Evalua la poblacion Inicial 
         for (PhiInstance instancia : poblacion) {
-            System.out.println(""+instancia.toString());
+            //System.out.println(""+instancia.toString());
             instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
             System.out.print(" valor: "+instancia.valorFitness+"\n");
         }
@@ -46,15 +46,65 @@ class entrenamiento {
      */
     public static PhiInstance generaIndividuo(){
         //Crea un BitSet del tamaño de SIZE_INSTANCE = 35
-        BitSet aux2 = new BitSet(PhiInstance.SIZE_INSTANCE);
-        for (int i = 0; i < PhiInstance.SIZE_INSTANCE; i++) {
-            //Genera un numero aleatorio del 0 al 10
-            int rand = (int) (Math.random()*10+1);
-            if (i % rand == 0) {// si i mod rand es 0
-                aux2.set(i);//Pone el bit de esa posicion en 1
-            }//Si no por defecto es 0
+        PhiInstance aux = new PhiInstance(new BitSet(PhiInstance.SIZE_INSTANCE));
+
+        int neuronas = (int) (Math.random()*24);
+        int capas = (int) (Math.random()*6);
+        int epocas = (int) (Math.random()*2048);
+        int rl = (int) (Math.random()*200);
+        int mom = (int) (Math.random()*200);
+
+        StringBuilder stringBuilder = new StringBuilder(Integer.toBinaryString(neuronas));
+		String invertida = stringBuilder.reverse().toString();
+        if (invertida.startsWith("0")) {
+            stringBuilder = new StringBuilder(invertida);
+            invertida = stringBuilder.delete(0,1).toString();
+        }else if (invertida.equals("")) {
+            invertida = "0";
         }
+        aux.setNeurona(PhiInstance.strToBitSet(invertida,5));
+
+        stringBuilder = new StringBuilder(Integer.toBinaryString(capas));
+        invertida = stringBuilder.reverse().toString();
+        if (invertida.startsWith("0")) {
+            stringBuilder = new StringBuilder(invertida);
+            invertida = stringBuilder.delete(0,1).toString();
+        }else if (invertida.equals("")) {
+            invertida = "0";
+        }
+        aux.setCapas(PhiInstance.strToBitSet(invertida,3));
+
+        stringBuilder = new StringBuilder(Integer.toBinaryString(epocas));
+        invertida = stringBuilder.reverse().toString();
+        if (invertida.startsWith("0")) {
+            stringBuilder = new StringBuilder(invertida);
+            invertida = stringBuilder.delete(0,1).toString();
+        }else if (invertida.equals("")) {
+            invertida = "0";
+        }
+        aux.setEpocas(PhiInstance.strToBitSet(invertida,11));
+
+        stringBuilder = new StringBuilder(Integer.toBinaryString(rl));
+        invertida = stringBuilder.reverse().toString();
+        if (invertida.startsWith("0")) {
+            stringBuilder = new StringBuilder(invertida);
+            invertida = stringBuilder.delete(0,1).toString();
+        }else if (invertida.equals("")) {
+            invertida = "0";
+        }
+        aux.setLR(PhiInstance.strToBitSet(invertida,8));
+
+        stringBuilder = new StringBuilder(Integer.toBinaryString(mom));
+        invertida = stringBuilder.reverse().toString();
+        if (invertida.startsWith("0")) {
+            stringBuilder = new StringBuilder(invertida);
+            invertida = stringBuilder.delete(0,1).toString();
+        }else if (invertida.equals("")) {
+            invertida = "0";
+        }
+        aux.setMomentum(PhiInstance.strToBitSet(invertida,8));
+
         //Regresa el nuevo individuo
-        return new PhiInstance(aux2);
+        return aux;
     }
 }

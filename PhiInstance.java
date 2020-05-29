@@ -1,4 +1,5 @@
 import java.util.BitSet;
+
 /**
  * Clase donde se define la forma de una instancia
  * Cada instancia tiene 35 bits almacenado de litte endian
@@ -14,7 +15,7 @@ public class PhiInstance {
     // Longitud de los bits
     //
     public static final int SIZE_INSTANCE = 35;//35 bits
-    public static final int SIZE_NEURONA = 5;//longtitud de bits
+    public static final int SIZE_NEURONA = 5;
     public static final int SIZE_CAPAS = 3;
     public static final int SIZE_EPOCAS = 11;
     public static final int SIZE_LR = 8;
@@ -61,22 +62,27 @@ public class PhiInstance {
             valor.set(i, neurona.get(i));
             j++;
         }
+        
         for (int i = 0; i < 3; i++) {//Se agregan las capas
             valor.set(j, capas.get(i));
             j++;
         }
+
         for (int i = 0; i < 11; i++) {//Se agregan las epocas
             valor.set(j, epocas.get(i));
             j++;
         }
+        
         for (int i = 0; i < 8; i++) {//Se agrega El learning rate
             valor.set(j, learningR.get(i));
             j++;
         }
+        
         for (int i = 0; i < 8; i++) {//Se agrega el momentum
             valor.set(j, momentum.get(i));
             j++;
         }
+        
         this.valor = valor;
     }
     //
@@ -129,32 +135,36 @@ public class PhiInstance {
     public BitSet getCapasBin(){
         BitSet aux = new BitSet(3);
         int j = 5;
-        for (int i = j; i < j+3; i++) {
-            aux.set(i, valor.get(i));
+        for (int i = 0; i < 3; i++) {
+            aux.set(i, valor.get(j));
+            j++;
         }
         return aux;
     }
     public BitSet getEpocasBin(){
         BitSet aux = new BitSet(11);
         int j = 8;
-        for (int i = j; i < j+11; i++) {
-            aux.set(i, valor.get(i));
+        for (int i = 0; i < 11; i++) {
+            aux.set(i, valor.get(j));
+            j++;
         }
         return aux;
     }
     public BitSet getLRBin(){
         BitSet aux = new BitSet(8);
         int j = 19;
-        for (int i = j; i < j+8; i++) {
-            aux.set(i, valor.get(i));
+        for (int i = 0; i < 8; i++) {
+            aux.set(i, valor.get(j));
+            j++;
         }
         return aux;
     }
     public BitSet getMomentumBin(){
         BitSet aux = new BitSet(8);
         int j = 27;
-        for (int i = j; i < j+8; i++) {
-            aux.set(i, valor.get(i));
+        for (int i = 0; i < 8; i++) {
+            aux.set(i, valor.get(j));
+            j++;
         }
         return aux;
     }
@@ -164,33 +174,38 @@ public class PhiInstance {
     //
     public int getNeuronas(){
         BitSet aux = this.getNeuronasBin();
-        int valor = (int) bitSettoLong(aux);
+        int nuevo = (int) (((int) bitSettoLong(aux)*27f)/23f);
+
         /**
          * si
          * 27 es a 23
          * ?  es a valor
          */
-        return (int) ((valor*27)/23);
+        return nuevo;
     } 
     public int getCapas(){
         BitSet aux = this.getCapasBin();
         int valor = (int) bitSettoLong(aux);
+        int nuevo = (int) ((valor*6f)/5f);
+
         /**
          * si
          * 6 es a 5
          * ?  es a valor
          */
-        return (int) ((valor*6)/5);
+        return nuevo;
     }
     public int getEpocas(){
         BitSet aux = this.getEpocasBin();
         int valor = (int) bitSettoLong(aux);
+        int nuevo = (int) ((valor*2500f)/2047f);
+
         /**
          * si
          * 2500 es a 2047
          *   ?  es a valor
          */
-        return (int) ((valor*2500)/2047);
+        return nuevo;
     }
     public Float getLR(){
         BitSet aux = this.getLRBin();
@@ -200,7 +215,7 @@ public class PhiInstance {
          * 400 es a 199
          *   ?  es a valor
          */
-        return new Float(((valor*400)/199)/100);
+        return new Float( (((valor*400f)/199f)/1000f));
     }
     public Float getMomentum(){
         BitSet aux = this.getMomentumBin();
@@ -210,11 +225,11 @@ public class PhiInstance {
          * 400 es a 199
          *   ?  es a valor
          */
-        return new Float(((valor*400)/199)/100);
+        return new Float((((valor*400f)/199f)/1000f));
     }
     
     public String toString(){
-        String neuronasCapas = new RNA("a.arff").capas(this.getNeuronas(), this.getCapas());
+        String neuronasCapas = RNA.capas(this.getNeuronas(), this.getCapas());
         int epocas = this.getEpocas();
         Float learningRate = this.getLR();
         Float momentum = this.getMomentum();
@@ -228,7 +243,7 @@ public class PhiInstance {
      * @param bits
      * @return
      */
-    public String bitSetToStr(BitSet bits){
+    public static String bitSetToStr(BitSet bits){
         int size = bits.length();
         String buffer = "";
         for (int i = 0; i < size; i++) {
@@ -239,6 +254,18 @@ public class PhiInstance {
             }
         }
         return buffer;
+    }
+
+    public static BitSet strToBitSet(String bits,int size){
+        BitSet aux = new BitSet(size);
+        for (int i = 0; i < bits.length(); i++) {
+            if (bits.charAt(i) == '1') {
+                aux.set(i);
+            }else{
+                aux.set(i, false);
+            }
+        }
+        return aux;
     }
 
     /**
