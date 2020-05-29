@@ -117,16 +117,16 @@ public class PhiInstance {
     }
     
     //
-    // Getters
+    // Getters Binarios
     //
-    public BitSet getNeurona(){
+    public BitSet getNeuronasBin(){
         BitSet aux = new BitSet(5);
         for (int i = 0; i < 5; i++) {//Se actualia los bits de neurona
             aux.set(i, valor.get(i));
         }
         return aux;
     } 
-    public BitSet getCapas(){
+    public BitSet getCapasBin(){
         BitSet aux = new BitSet(3);
         int j = 5;
         for (int i = j; i < j+3; i++) {
@@ -134,7 +134,7 @@ public class PhiInstance {
         }
         return aux;
     }
-    public BitSet getEpocas(){
+    public BitSet getEpocasBin(){
         BitSet aux = new BitSet(11);
         int j = 8;
         for (int i = j; i < j+11; i++) {
@@ -142,7 +142,7 @@ public class PhiInstance {
         }
         return aux;
     }
-    public BitSet getLR(){
+    public BitSet getLRBin(){
         BitSet aux = new BitSet(8);
         int j = 19;
         for (int i = j; i < j+8; i++) {
@@ -150,7 +150,7 @@ public class PhiInstance {
         }
         return aux;
     }
-    public BitSet getMomentum(){
+    public BitSet getMomentumBin(){
         BitSet aux = new BitSet(8);
         int j = 27;
         for (int i = j; i < j+8; i++) {
@@ -159,6 +159,61 @@ public class PhiInstance {
         return aux;
     }
     
+//
+    // Getters
+    //
+    public int getNeuronas(){
+        BitSet aux = this.getNeuronasBin();
+        int valor = (int) bitSettoLong(aux);
+        /**
+         * si
+         * 27 es a 23
+         * ?  es a valor
+         */
+        return (int) ((valor*27)/23);
+    } 
+    public int getCapas(){
+        BitSet aux = this.getCapasBin();
+        int valor = (int) bitSettoLong(aux);
+        /**
+         * si
+         * 6 es a 5
+         * ?  es a valor
+         */
+        return (int) ((valor*6)/5);
+    }
+    public int getEpocas(){
+        BitSet aux = this.getEpocasBin();
+        int valor = (int) bitSettoLong(aux);
+        /**
+         * si
+         * 2500 es a 2047
+         *   ?  es a valor
+         */
+        return (int) ((valor*2500)/2047);
+    }
+    public Float getLR(){
+        BitSet aux = this.getLRBin();
+        int valor = (int) bitSettoLong(aux);
+        /**
+         * si
+         * 400 es a 199
+         *   ?  es a valor
+         */
+        return ((valor*400)/199)/100;
+    }
+    public Float getMomentum(){
+        BitSet aux = this.getMomentumBin();
+        int valor = (int) bitSettoLong(aux);
+        /**
+         * si
+         * 400 es a 199
+         *   ?  es a valor
+         */
+        return ((valor*400)/199)/100;
+    }
+    
+
     /**
      * Retorna en forma String 01
      * el BitSet
