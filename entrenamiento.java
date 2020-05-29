@@ -19,8 +19,8 @@ class entrenamiento {
 
         //Evalua la poblacion Inicial 
         for (PhiInstance instancia : poblacion) {
-            instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
             System.out.println(""+instancia.toString());
+            instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
             System.out.print(" valor: "+instancia.valorFitness+"\n");
         }
     }
