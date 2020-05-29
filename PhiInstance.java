@@ -10,7 +10,7 @@ import java.util.BitSet;
  * neuro  capa  epocas   lr       momentum
  * 
  */
-public class PhiInstance {
+public class PhiInstance implements Comparable< PhiInstance >{
     //
     // Longitud de los bits
     //
@@ -228,6 +228,9 @@ public class PhiInstance {
         return new Float((((valor*400f)/199f)/1000f));
     }
     
+    /**
+     * Retorna la cadena de los valores de la Instancia
+     */
     public String toString(){
         String neuronasCapas = RNA.capas(this.getNeuronas(), this.getCapas());
         int epocas = this.getEpocas();
@@ -235,6 +238,11 @@ public class PhiInstance {
         Float momentum = this.getMomentum();
         int kfolds = 5;
         return "n/c: "+neuronasCapas+" e: "+epocas+" lr: "+learningRate+" m: "+momentum;
+    }
+
+    @Override
+    public int compareTo(PhiInstance o) {
+        return this.valorFitness.compareTo(o.valorFitness);
     }
 
     /**
@@ -256,6 +264,13 @@ public class PhiInstance {
         return buffer;
     }
 
+    /**
+     * String "01001" to Bitset
+     * 
+     * @param bits
+     * @param size
+     * @return
+     */
     public static BitSet strToBitSet(String bits,int size){
         BitSet aux = new BitSet(size);
         for (int i = 0; i < bits.length(); i++) {

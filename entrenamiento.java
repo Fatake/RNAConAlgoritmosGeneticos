@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Collections;
 
 /**
  * Main Class para el entrenamiento don algoritmos geneticos
@@ -7,6 +8,8 @@ import java.util.BitSet;
 class entrenamiento {
     // Variable que almacena la poblacio
     public static ArrayList<PhiInstance> poblacion = new ArrayList<>();
+    public static int TAM_POBLACION = 10;
+    public static Float FITNESS_THRESHOLD = 80.0f;
     /**
      * funcion Main del programa
      * @param args
@@ -15,15 +18,34 @@ class entrenamiento {
         RNA naturalNetwork = new RNA("ForestFire.arff");
 
         //Generar una poblacion
-        poblacion = generarPoblacion(10);
-
+        poblacion = generarPoblacion(TAM_POBLACION);
+        
         //Evalua la poblacion Inicial 
         for (PhiInstance instancia : poblacion) {
             System.out.print(""+instancia.toString());
             instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
             System.out.print(" fitness: "+instancia.valorFitness+"\n");
         }
+
+        //mientras max fitness(h) < FITNESS_THRESHOLD
+        while (calculaMaximo() < FITNESS_THRESHOLD) {
+            // Ordena la poblacion de mayor a menor fitness
+            Collections.sort(poblacion);
+            // 1) Crear una poblacion PS que seran las mejores n/2 instancias la poblacion P
+            ArrayList<PhiInstance> ps = new ArrayList<>();
+            for (int i = 0; i < (TAM_POBLACION/2); i++) {
+                ps.add(poblacion.get(i));
+            }
+            
+            // 2) Hacer la cruza de la poblacion P un total de n/2 hijos necesitamos
+            // 3) colocar esos n/2 hijos en PS y mutar uno o 2 de ellos
+            // 4) Actualizar P = Ps
+            // 5) Reevalular los fitness
+        }
     }
+
+    
+    
 
     /**
      * Funcion que genera una Poblacion de N individuos 
@@ -107,4 +129,19 @@ class entrenamiento {
         //Regresa el nuevo individuo
         return aux;
     }
+
+    /**
+     * Calcula el max Fitness(h)
+     * @return
+     */
+    public static Float calculaMaximo(){
+        Float aux = 0.0f;
+        for (PhiInstance instancia : poblacion) {
+            if (instancia.valorFitness > aux) {
+                aux = instancia.valorFitness;
+            }
+        }
+        return aux;
+    }
+
 }
