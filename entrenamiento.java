@@ -12,7 +12,7 @@ class entrenamiento {
      * @param args
      */
     public static void main(String args[]) {
-        RNA naturalNetwork = new RNA();
+        RNA naturalNetwork = new RNA("ForestFire.arff");
 
         //Generar una poblacion
         poblacion = generarPoblacion(100);

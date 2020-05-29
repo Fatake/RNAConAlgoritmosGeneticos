@@ -1,3 +1,3 @@
-javac PhiInstanse.java
-java PhiInstanse
+javac entrenamiento.java
+java entrenamiento
 pause

@@ -200,7 +200,7 @@ public class PhiInstance {
          * 400 es a 199
          *   ?  es a valor
          */
-        return ((valor*400)/199)/100;
+        return new Float(((valor*400)/199)/100);
     }
     public Float getMomentum(){
         BitSet aux = this.getMomentumBin();
@@ -210,7 +210,7 @@ public class PhiInstance {
          * 400 es a 199
          *   ?  es a valor
          */
-        return ((valor*400)/199)/100;
+        return new Float(((valor*400)/199)/100);
     }
     
 
