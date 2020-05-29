@@ -16,10 +16,13 @@ class entrenamiento {
 
         //Generar una poblacion
         poblacion = generarPoblacion(100);
-
+        int i = 1;
         //Evalua la poblacion Inicial 
         for (PhiInstance instancia : poblacion) {
+            System.out.println("Entrenando instancia"+i);
             instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
+            System.out.println("valor: "+instancia.valorFitness);
+            i++;
         }
     }
 

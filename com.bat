@@ -1,3 +1,0 @@
-javac entrenamiento.java
-java entrenamiento
-pause
