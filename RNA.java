@@ -77,11 +77,11 @@ public class RNA{
      * @return Float porcentaje de clasificacion
      */
     public Float entrenar(final PhiInstance parametros) {
-        final String neuronasCapas = capas(parametros.getNeuronas(), parametros.getCapas());
-        final int epocas = parametros.getEpocas();
-        final Float learningRate = parametros.getLR();
-        final Float momentum = parametros.getMomentum();
-        final int kfolds = 5;
+        String neuronasCapas = capas(parametros.getNeuronas(), parametros.getCapas());
+        int epocas = parametros.getEpocas();
+        Float learningRate = parametros.getLR();
+        Float momentum = parametros.getMomentum();
+        int kfolds = 5;
         String resultados = "";
         try {
             final FileReader trainreader = new FileReader(this.dataBaseName);

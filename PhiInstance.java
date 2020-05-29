@@ -159,7 +159,7 @@ public class PhiInstance {
         return aux;
     }
     
-//
+    //
     // Getters
     //
     public int getNeuronas(){
