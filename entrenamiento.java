@@ -17,10 +17,12 @@ class entrenamiento {
     public static void main(String args[]) {
         RNA naturalNetwork = new RNA("ForestFire.arff");
 
+        System.out.println("Generando poblacion");
         //Generar una poblacion
         poblacion = generarPoblacion(TAM_POBLACION);
         
         //Evalua la poblacion Inicial 
+        System.out.println("\nEvaluando P con Fitness");
         for (PhiInstance instancia : poblacion) {
             System.out.print(""+instancia.toString());
             instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
@@ -29,8 +31,11 @@ class entrenamiento {
 
         //mientras max fitness(h) < FITNESS_THRESHOLD
         while (calculaMaximo() < FITNESS_THRESHOLD) {
+            System.out.println("Ordenando la poblacion");
             // Ordena la poblacion de mayor a menor fitness
             Collections.sort(poblacion);
+
+            
             // 1) Crear una poblacion PS que seran las mejores n/2 instancias la poblacion P
             ArrayList<PhiInstance> ps = new ArrayList<>();
             for (int i = 0; i < (TAM_POBLACION/2); i++) {
@@ -126,6 +131,7 @@ class entrenamiento {
         }
         aux.setMomentum(PhiInstance.strToBitSet(invertida,8));
 
+        System.out.println(""+aux.toString());
         //Regresa el nuevo individuo
         return aux;
     }
