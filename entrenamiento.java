@@ -35,10 +35,10 @@ class entrenamiento {
         while (generacionActual < GENERACIONES) {
             System.out.println("Generacion Actual: "+(generacionActual+1));
             System.out.println("Ordenando la poblacion");
+
             // Ordena la poblacion de mayor a menor fitness
             Collections.sort(poblacion);
 
-            
             // 1) Crear una poblacion PS que seran las mejores n/2 instancias la poblacion P
             ArrayList<PhiInstance> ps = new ArrayList<>();
             for (int i = 0; i < (TAM_POBLACION/2); i++) {
@@ -51,9 +51,6 @@ class entrenamiento {
             // 5) Reevalular los fitness
         }
     }
-
-    
-    
 
     /**
      * Funcion que genera una Poblacion de N individuos 
@@ -69,6 +66,8 @@ class entrenamiento {
         }
         return poblacionaux;
     }
+
+
     /**
      * Genera un individuo de la la clase
      * PhiInstance de forma aleatorio
@@ -152,5 +151,4 @@ class entrenamiento {
         }
         return aux;
     }
-
 }
