@@ -3,8 +3,8 @@ import java.util.BitSet;
 /**
  * Clase donde se define la forma de una instancia
  * Cada instancia tiene 35 bits almacenado de litte endian
- * 
- * Donde:
+ *                                                        
+ * Donde:                                                 
  * 00000|000|00000000000|00000000|00000000
  * 5bits 3bi  11bits     8bits     8bits
  * neuro  capa  epocas   lr       momentum

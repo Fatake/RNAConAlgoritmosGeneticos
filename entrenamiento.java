@@ -10,6 +10,7 @@ class entrenamiento {
     public static ArrayList<PhiInstance> poblacion = new ArrayList<>();
     public static int TAM_POBLACION = 10;
     public static Float FITNESS_THRESHOLD = 80.0f;
+    public static final int GENERACIONES = 1000;
     /**
      * funcion Main del programa
      * @param args
@@ -29,8 +30,10 @@ class entrenamiento {
             System.out.print(" fitness: "+instancia.valorFitness+"\n");
         }
 
-        //mientras max fitness(h) < FITNESS_THRESHOLD
-        while (calculaMaximo() < FITNESS_THRESHOLD) {
+        int generacionActual = 0;
+        //mientras no se han llegado al maximo de generaciones
+        while (generacionActual < GENERACIONES) {
+            System.out.println("Generacion Actual: "+(generacionActual+1));
             System.out.println("Ordenando la poblacion");
             // Ordena la poblacion de mayor a menor fitness
             Collections.sort(poblacion);
