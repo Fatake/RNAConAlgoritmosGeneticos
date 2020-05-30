@@ -15,6 +15,7 @@ class entrenamiento {
      * @param args
      */
     public static void main(String args[]) {
+
         RNA naturalNetwork = new RNA("ForestFire.arff");
 
         System.out.println("Generando poblacion");
@@ -25,6 +26,7 @@ class entrenamiento {
         System.out.println("\nEvaluando P con Fitness");
         for (PhiInstance instancia : poblacion) {
             System.out.print(""+instancia.toString());
+            // fitness  = Float
             instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
             System.out.print(" fitness: "+instancia.valorFitness+"\n");
         }
@@ -48,7 +50,11 @@ class entrenamiento {
             // 3) colocar esos n/2 hijos en PS y mutar uno o 2 de ellos
             // 4) Actualizar P = Ps
             // 5) Reevalular los fitness
+            generacionActual ++;
         }
+        //lista final
+        //Se ordena
+        // retorna el mejor fitness
     }
 
     /**
