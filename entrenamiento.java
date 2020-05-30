@@ -8,8 +8,7 @@ import java.util.Collections;
 class entrenamiento {
     // Variable que almacena la poblacio
     public static ArrayList<PhiInstance> poblacion = new ArrayList<>();
-    public static int TAM_POBLACION = 10;
-    public static Float FITNESS_THRESHOLD = 80.0f;
+    public static final int TAM_POBLACION = 10;
     public static final int GENERACIONES = 1000;
     /**
      * funcion Main del programa
