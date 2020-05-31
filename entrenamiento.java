@@ -8,7 +8,7 @@ import java.util.Collections;
 class entrenamiento {
     // Variable que almacena la poblacio
     public static ArrayList<PhiInstance> poblacion = new ArrayList<>();
-    public static final int TAM_POBLACION = 10;
+    public static final int TAM_POBLACION = 100;
     public static final int GENERACIONES = 1000;
     /**
      * funcion Main del programa
@@ -19,6 +19,7 @@ class entrenamiento {
         RNA naturalNetwork = new RNA("ForestFire.arff");
 
         System.out.println("Generando poblacion");
+
         //Generar una poblacion
         poblacion = generarPoblacion(TAM_POBLACION);
         
@@ -30,6 +31,7 @@ class entrenamiento {
             instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
             System.out.print(" fitness: "+instancia.valorFitness+"\n");
         }
+        Collections.sort(poblacion);
 
         int generacionActual = 0;
         //mientras no se han llegado al maximo de generaciones
@@ -37,24 +39,40 @@ class entrenamiento {
             System.out.println("Generacion Actual: "+(generacionActual+1));
             System.out.println("Ordenando la poblacion");
 
-            // Ordena la poblacion de mayor a menor fitness
-            Collections.sort(poblacion);
-
             // 1) Crear una poblacion PS que seran las mejores n/2 instancias la poblacion P
             ArrayList<PhiInstance> ps = new ArrayList<>();
             for (int i = 0; i < (TAM_POBLACION/2); i++) {
-                ps.add(poblacion.get(i));
+                ps.add( poblacion.get(i) );
             }
-            
             // 2) Hacer la cruza de la poblacion P un total de n/2 hijos necesitamos
-            // 3) colocar esos n/2 hijos en PS y mutar uno o 2 de ellos
+            
+            // 3) colocar esos n/2 hijos en PS 
+
+            // Mutacion
+            // ahora tenemos nuentra problacion de TAM_POBLACION
+            for (int i = (TAM_POBLACION/2)+1; i < TAM_POBLACION; i++) {
+                PhiInstance hijo = ps.get(i);
+                hijo = PhiInstance.mutacion(hijo);
+                ps.set(i, hijo);
+            }
+
             // 4) Actualizar P = Ps
+            poblacion = ps;
+            
             // 5) Reevalular los fitness
+            for (PhiInstance instancia : poblacion) {
+                instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
+            }
+
+            // y ordenar
+            Collections.sort(poblacion);
+
+            // Pasa a la siguiente generacion
             generacionActual ++;
         }
         //lista final
         //Se ordena
-        // retorna el mejor fitness
+        // retorna el mejor individuo
     }
 
     /**
@@ -71,7 +89,6 @@ class entrenamiento {
         }
         return poblacionaux;
     }
-
 
     /**
      * Genera un individuo de la la clase

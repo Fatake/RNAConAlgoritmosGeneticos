@@ -129,6 +129,22 @@ public class validador {
         return true;
     }
     
+    public bolean validaInstanciaCampos(PhiInstance instancia){
+        //retorna true en caso de ser valida toda la instancia en cada valor
+        //retorna false en caso de que algun campo no cumpla con su valor maximo
+        if(!validaNeuronas(instancia.getNeuronasBin()))
+            return false;
+        if(!validaCapas(instancia.getCapasBin()))
+            return false;
+        if(!validaEpocas(instancia.getEpocasBin()))
+            return false;
+        if(!validaLR(instancia.getLRBin()))
+            return false;
+        if(!validaMomentum(instancia.getMomentumBin()))
+            return false;
+        return true;
+    }
+
     public boolean validaInstanciaPhi(PhiInstance instancia){
         if (instancia.valor.length() != PhiInstance.SIZE_INSTANCE) {
             return false;

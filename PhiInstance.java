@@ -1,4 +1,5 @@
 import java.util.BitSet;
+import java.util.Random;
 
 /**
  * Clase donde se define la forma de una instancia
@@ -31,6 +32,9 @@ public class PhiInstance implements Comparable< PhiInstance >{
 
     // Valor de la instancia
     public BitSet valor = new BitSet(35);
+
+    //Factor de mutación
+    public static final float FACTOR_MUTACION = 0.1f;
 
     //Valor Fitness
     public Float valorFitness;
@@ -80,11 +84,36 @@ public class PhiInstance implements Comparable< PhiInstance >{
         
         for (int i = 0; i < 8; i++) {//Se agrega el momentum
             valor.set(j, momentum.get(i));
-            j++;
+            j ++;
         }
         
         this.valor = valor;
     }
+
+    /**
+     * funcion mutadora
+     */
+    public static PhiInstance mutacion(PhiInstance instancia){
+        Random r=new Random();
+        if(r.nextDouble()<=FACTOR_MUTACION){
+            PhiInstance aux=new PhiInstance();
+            validador v=new validador();
+            for(int i=0;i<2;i++){
+                do{
+                    aux=instancia;
+                    //obtiene indice random de 0 a 35
+                    int indice_random=r.nextInt(SIZE_INSTANCE);
+                    //obtiene valor de bit en el indice random
+                    int valor_bit=aux.valor.get(indice_random);
+                    //invierte el valor del bit en el indice random
+                    aux.valor.set(indice_random,(valor_bit+1)%2);
+                }while(!v.validaInstanciaCampos(aux));
+                instancia=aux;
+            }
+        }
+        return instancia;
+    }
+
     //
     // setters
     //
@@ -127,7 +156,7 @@ public class PhiInstance implements Comparable< PhiInstance >{
     //
     public BitSet getNeuronasBin(){
         BitSet aux = new BitSet(5);
-        for (int i = 0; i < 5; i++) {//Se actualia los bits de neurona
+        for (int i = 0; i < 5; i++) {//Se actualiza los bits de neurona
             aux.set(i, valor.get(i));
         }
         return aux;
