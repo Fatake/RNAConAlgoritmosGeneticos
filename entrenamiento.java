@@ -33,7 +33,7 @@ class entrenamiento {
         int generacionActual = 0;
         //mientras no se han llegado al maximo de generaciones
         while (generacionActual < GENERACIONES) {
-            System.out.println("Generacion Actual: "+(generacionActual+1));
+            System.out.println("\nGeneracion: "+(generacionActual+1));
 
             // 1) Crear una poblacion PS que seran las mejores n/2 instancias la poblacion P
             ArrayList<PhiInstance> ps = new ArrayList<PhiInstance>();
@@ -57,6 +57,7 @@ class entrenamiento {
             // 5) Reevalular los fitness
             for (PhiInstance instancia : poblacion) {
                 instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
+                System.out.print(""+instancia.valorFitness+"\n");
             }
 
             // y ordenar
