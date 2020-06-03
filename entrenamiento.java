@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collections;
@@ -12,26 +11,23 @@ class entrenamiento {
     public static ArrayList<PhiInstance> poblacion = new ArrayList<>();
     public static final int TAM_POBLACION = 100;
     public static final int GENERACIONES = 1000;
+
     /**
      * funcion Main del programa
      * @param args
      */
     public static void main(String args[]) {
-
         RNA naturalNetwork = new RNA("ForestFire.arff");
-
-        System.out.println("Generando poblacion");
 
         //Generar una poblacion
         poblacion = generarPoblacion(TAM_POBLACION);
         
         //Evalua la poblacion Inicial 
-        System.out.println("\nEvaluando P con Fitness");
         for (PhiInstance instancia : poblacion) {
             System.out.print(""+instancia.toString());
             // fitness  = Float
             instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
-            System.out.print(" fitness: "+instancia.valorFitness+"\n");
+            System.out.print(""+instancia.valorFitness+"\n");
         }
         Collections.sort(poblacion);
 
@@ -39,7 +35,6 @@ class entrenamiento {
         //mientras no se han llegado al maximo de generaciones
         while (generacionActual < GENERACIONES) {
             System.out.println("Generacion Actual: "+(generacionActual+1));
-            System.out.println("Ordenando la poblacion");
 
             // 1) Crear una poblacion PS que seran las mejores n/2 instancias la poblacion P
             ArrayList<PhiInstance> ps = new ArrayList<PhiInstance>();
@@ -156,23 +151,27 @@ class entrenamiento {
             invertida = "0";
         }
         aux.setMomentum(PhiInstance.strToBitSet(invertida,8));
-
-        System.out.println(""+aux.toString());
         //Regresa el nuevo individuo
         return aux;
     }
 
+    /**
+     * Funcion que genera un hijo dado una instancia phi padre y madre
+     * @param poblacion
+     * @param pad
+     * @param mad
+     */
     public static void generaHijo(ArrayList <PhiInstance> poblacion, int pad, int mad){ 
         PhiInstance auxp = new PhiInstance(new BitSet(PhiInstance.SIZE_INSTANCE));
-        validador v=new validador();
-        auxp=poblacion.get(pad);
-        BitSet padre=auxp.valor;
-        auxp=poblacion.get(mad);
-        BitSet madre=auxp.valor;
-        BitSet hijo1=new BitSet(35);
-        BitSet hijo2=new BitSet(35);
+        validador v = new validador();
+        auxp = poblacion.get(pad);
+        BitSet padre = auxp.valor;
+        auxp = poblacion.get(mad);
+        BitSet madre = auxp.valor;
+        BitSet hijo1 = new BitSet(35);
+        BitSet hijo2 = new BitSet(35);
         for(int i=0; i<35; i++){
-            if(i%2==0){
+            if(i%2 == 0){
                 hijo1.set(i,padre.get(i));
                 hijo2.set(i,madre.get(i));   
             }else{
@@ -189,7 +188,10 @@ class entrenamiento {
     }
     
     /**
-     * 
+     * Funcion que permite hacer un cruze entre un padre y madre
+     * @param poblacion
+     * @param pad
+     * @param mad
      */
     public static void Cruce(ArrayList <PhiInstance> poblacion, int pad, int mad){
         PhiInstance auxp = new PhiInstance(new BitSet(PhiInstance.SIZE_INSTANCE));
@@ -261,8 +263,8 @@ class entrenamiento {
             poblacion.add(new PhiInstance(hijo1));
             poblacion.add(new PhiInstance(hijo2));
         }
-//return new PhiInstance(hijo1);
-}
+    //return new PhiInstance(hijo1);
+    }
      
     /**
      * Calcula el max Fitness(h)
@@ -276,9 +278,5 @@ class entrenamiento {
             }
         }
         return aux;
-        
     }
-    
-    
-    
 }
