@@ -1,3 +1,5 @@
+
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Random;
 
@@ -92,11 +94,13 @@ public class PhiInstance implements Comparable< PhiInstance >{
 
     /**
      * funcion mutadora
+     * @param instancia
+     * @return 
      */
-    public static PhiInstance mutacion(PhiInstance instancia){
+    public static PhiInstance mutacion(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
         Random r=new Random();
         if(r.nextDouble()<=FACTOR_MUTACION){
-            PhiInstance aux=new PhiInstance();
+            PhiInstance aux=new PhiInstance(new BitSet(35));
             validador v=new validador();
             for(int i=0;i<2;i++){
                 do{
@@ -104,15 +108,16 @@ public class PhiInstance implements Comparable< PhiInstance >{
                     //obtiene indice random de 0 a 35
                     int indice_random=r.nextInt(SIZE_INSTANCE);
                     //obtiene valor de bit en el indice random
-                    int valor_bit=aux.valor.get(indice_random);
+                    Boolean valor_bit=aux.valor.get(indice_random);
                     //invierte el valor del bit en el indice random
-                    aux.valor.set(indice_random,(valor_bit+1)%2);
-                }while(!v.validaInstanciaCampos(aux));
+                    aux.valor.set(indice_random,!valor_bit);
+                }while(!v.validaInstanciaCampos(aux,poblacion));
                 instancia=aux;
             }
         }
         return instancia;
     }
+
 
     //
     // setters
@@ -265,7 +270,6 @@ public class PhiInstance implements Comparable< PhiInstance >{
         int epocas = this.getEpocas();
         Float learningRate = this.getLR();
         Float momentum = this.getMomentum();
-        int kfolds = 5;
         return "n/c: "+neuronasCapas+" e: "+epocas+" lr: "+learningRate+" m: "+momentum;
     }
 
