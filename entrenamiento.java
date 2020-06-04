@@ -9,7 +9,7 @@ import java.util.Collections;
 class entrenamiento {
     // Variable que almacena la poblacio
     public static final int GENERACIONES = 1000;
-    public static final int TAM_POBLACION = 4;
+    public static final int TAM_POBLACION = 100;
     public static ArrayList<PhiInstance> poblacion = new ArrayList<>(TAM_POBLACION);
     /**
      * funcion Main del programa
