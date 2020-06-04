@@ -36,7 +36,7 @@ public class PhiInstance {
     public BitSet valor = new BitSet(35);
 
     //Factor de mutación
-    public static final float FACTOR_MUTACION = 0.1f;
+    public static final float FACTOR_MUTACION = 0.2f;
 
     //Valor Fitness
     public Float valorFitness;
@@ -98,8 +98,8 @@ public class PhiInstance {
      * @return 
      */
     public static PhiInstance mutacion(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
-        Random r=new Random();
-        if(r.nextDouble()<=FACTOR_MUTACION){
+        Random r = new Random();
+        if(r.nextDouble() <= FACTOR_MUTACION){
             PhiInstance aux=new PhiInstance(new BitSet(35));
             validador v=new validador();
             for(int i=0;i<2;i++){
