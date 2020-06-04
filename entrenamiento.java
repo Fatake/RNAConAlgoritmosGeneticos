@@ -42,18 +42,18 @@ class entrenamiento {
             for (int i = 0; i < (TAM_POBLACION/2); i++) {
                 ps.add( poblacion.get(i) );
             }
+            
             // 2) Hacer la cruza de la poblacion P un total de n/2 hijos necesitamos Y 3) colocar esos n/2 hijos en PS 
-            for (int i=0;i<(TAM_POBLACION/2);i+=2){
+            // se generan los padres de forma aleatoria
+            while (ps.size() < TAM_POBLACION) {
+                int padre1 = (int) (Math.random()*ps.size());
+                int padre2 = (int) (Math.random()*ps.size());
                 //dentro de la funcion genera Hijo son agregados los hijos resultantes validos
-                if (i+1 < (TAM_POBLACION/2)) {
-                    generaHijo(ps,i,i-5);
-                }else{
-                    generaHijo(ps,i,i+1);
-                }
+                generaHijo(ps,padre1,padre2);
             }
             // Mutacion
             // ahora tenemos nuentra problacion de TAM_POBLACION
-            for (int i = (TAM_POBLACION/2)+1; i < ps.size() ; i++) {
+            for (int i = (TAM_POBLACION/2)+1; i < TAM_POBLACION ; i++) {
                 PhiInstance hijo = ps.get(i);
                 hijo = PhiInstance.mutacion(hijo,ps);
                 ps.set(i, hijo);
@@ -182,11 +182,11 @@ class entrenamiento {
         BitSet hijo2 = new BitSet(35);
         for(int i=0; i<35; i++){
             if(i%2 == 0){
-                hijo1.set(i,padre.get(i));
-                hijo2.set(i,madre.get(i));   
+                hijo1.set( i,padre.get(i) );
+                hijo2.set( i,madre.get(i) );   
             }else{
-                hijo1.set(i,madre.get(i));
-                hijo2.set(i,padre.get(i));  
+                hijo1.set( i,madre.get(i) );
+                hijo2.set( i,padre.get(i) );  
             }
         }
         if(v.validaInstanciaCampos(new PhiInstance(hijo1),poblacion) && v.validaInstanciaCampos(new PhiInstance(hijo2),poblacion)){
@@ -205,13 +205,13 @@ class entrenamiento {
      */
     public static void Cruce(ArrayList <PhiInstance> poblacion, int pad, int mad){
         PhiInstance auxp = new PhiInstance(new BitSet(PhiInstance.SIZE_INSTANCE));
-        validador v=new validador();
-        auxp=poblacion.get(pad);
-        BitSet padre=auxp.valor;
-        auxp=poblacion.get(mad);
-        BitSet madre=auxp.valor;
-        BitSet hijo1=new BitSet(35);
-        BitSet hijo2=new BitSet(35);
+        validador v = new validador();
+        auxp = poblacion.get(pad);
+        BitSet padre = auxp.valor;
+        auxp = poblacion.get(mad);
+        BitSet madre = auxp.valor;
+        BitSet hijo1 = new BitSet(35);
+        BitSet hijo2 = new BitSet(35);
         int j;
         int i=0;
         int k=(PhiInstance.SIZE_NEURONA)/2;
@@ -273,7 +273,6 @@ class entrenamiento {
             poblacion.add(new PhiInstance(hijo1));
             poblacion.add(new PhiInstance(hijo2));
         }
-    //return new PhiInstance(hijo1);
     }
 
     /**
