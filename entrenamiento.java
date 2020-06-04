@@ -8,10 +8,9 @@ import java.util.Collections;
  */
 class entrenamiento {
     // Variable que almacena la poblacio
-    public static ArrayList<PhiInstance> poblacion = new ArrayList<>();
-    public static final int TAM_POBLACION = 100;
     public static final int GENERACIONES = 1000;
-
+    public static final int TAM_POBLACION = 4;
+    public static ArrayList<PhiInstance> poblacion = new ArrayList<>(TAM_POBLACION);
     /**
      * funcion Main del programa
      * @param args
@@ -26,9 +25,12 @@ class entrenamiento {
         for (PhiInstance instancia : poblacion) {
             // fitness  = Float
             instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
-            System.out.print(""+instancia.valorFitness+"\n");
         }
         odenaPoblacion();
+
+        for (PhiInstance instancia : poblacion) {
+            System.out.print(""+instancia.valorFitness+"\n");
+        }
 
         int generacionActual = 0;
         //mientras no se han llegado al maximo de generaciones
@@ -43,7 +45,11 @@ class entrenamiento {
             // 2) Hacer la cruza de la poblacion P un total de n/2 hijos necesitamos Y 3) colocar esos n/2 hijos en PS 
             for (int i=0;i<(TAM_POBLACION/2);i+=2){
                 //dentro de la funcion genera Hijo son agregados los hijos resultantes validos
-                generaHijo(ps,i,i+1);
+                if (i+1 < (TAM_POBLACION/2)) {
+                    generaHijo(ps,i,i-5);
+                }else{
+                    generaHijo(ps,i,i+1);
+                }
             }
             // Mutacion
             // ahora tenemos nuentra problacion de TAM_POBLACION
@@ -52,16 +58,20 @@ class entrenamiento {
                 hijo = PhiInstance.mutacion(hijo,ps);
                 ps.set(i, hijo);
             }
+
             // 4) Actualizar P = Ps
             poblacion = ps;
             // 5) Reevalular los fitness
             for (PhiInstance instancia : poblacion) {
                 instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
-                System.out.print(""+instancia.valorFitness+"\n");
             }
 
             // y ordenar
             odenaPoblacion();
+
+            for (PhiInstance instancia : poblacion) {
+                System.out.print(""+instancia.valorFitness+"\n");
+            }
 
             // Pasa a la siguiente generacion
             generacionActual ++;
@@ -265,30 +275,16 @@ class entrenamiento {
         }
     //return new PhiInstance(hijo1);
     }
-     
-    /**
-     * Calcula el max Fitness(h)
-     * @return
-     */
-    public static Float calculaMaximo(){
-        Float aux = 0.0f;
-        for (PhiInstance instancia : poblacion) {
-            if (instancia.valorFitness > aux) {
-                aux = instancia.valorFitness;
-            }
-        }
-        return aux;
-    }
 
     /**
      * Funcion que ordena 
      */
     public static void odenaPoblacion(){
         PhiInstance temp;
-        int t = GENERACIONES;
+        int t = TAM_POBLACION;
         for (int i = 1; i < t; i++) {
             for (int k = t- 1; k >= i; k--) {
-                if(poblacion.get(k).valorFitness < poblacion.get(k-1).valorFitness){
+                if(poblacion.get(k).valorFitness > poblacion.get(k-1).valorFitness){
                     temp = poblacion.get(k);
                     poblacion.remove(k);
                     poblacion.add(k, poblacion.get(k-1)); 
