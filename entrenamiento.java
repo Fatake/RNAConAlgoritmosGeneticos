@@ -28,7 +28,7 @@ class entrenamiento {
             instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
             System.out.print(""+instancia.valorFitness+"\n");
         }
-        Collections.sort(poblacion);
+        odenaPoblacion();
 
         int generacionActual = 0;
         //mientras no se han llegado al maximo de generaciones
@@ -61,13 +61,13 @@ class entrenamiento {
             }
 
             // y ordenar
-            Collections.sort(poblacion);
+            odenaPoblacion();
 
             // Pasa a la siguiente generacion
             generacionActual ++;
         }
         //lista final
-        Collections.sort(poblacion);
+        odenaPoblacion();
         // retorna el mejor individuo
         System.out.println(""+poblacion.get(0).toString());
     }
@@ -278,5 +278,24 @@ class entrenamiento {
             }
         }
         return aux;
+    }
+
+    /**
+     * Funcion que ordena 
+     */
+    public static void odenaPoblacion(){
+        PhiInstance temp;
+        int t = GENERACIONES;
+        for (int i = 1; i < t; i++) {
+            for (int k = t- 1; k >= i; k--) {
+                if(poblacion.get(k).valorFitness < poblacion.get(k-1).valorFitness){
+                    temp = poblacion.get(k);
+                    poblacion.remove(k);
+                    poblacion.add(k, poblacion.get(k-1)); 
+                    poblacion.remove(k-1);
+                    poblacion.add(k-1, temp); 
+                }
+            }
+        }
     }
 }
