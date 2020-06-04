@@ -13,7 +13,7 @@ import java.util.Random;
  * neuro  capa  epocas   lr       momentum
  * 
  */
-public class PhiInstance implements Comparable< PhiInstance >{
+public class PhiInstance {
     //
     // Longitud de los bits
     //
@@ -271,11 +271,6 @@ public class PhiInstance implements Comparable< PhiInstance >{
         Float learningRate = this.getLR();
         Float momentum = this.getMomentum();
         return "n/c: "+neuronasCapas+" e: "+epocas+" lr: "+learningRate+" m: "+momentum;
-    }
-
-    @Override
-    public int compareTo(PhiInstance o) {
-        return this.valorFitness.compareTo(o.valorFitness);
     }
 
     /**
