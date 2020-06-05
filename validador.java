@@ -131,9 +131,17 @@ public class Validador {
         return true;
     }
     
+    /**
+     * 
+     * @param instancia
+     * PhiInstance a validar
+     * @param poblacion
+     * ArayList de PhiInstance
+     * @return *true* en caso de ser valida toda la instancia en cada valor
+     * *false* en caso de que algun campo no cumpla con su valor maximo
+     */
     public boolean validaInstanciaCampos(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
-        //retorna true en caso de ser valida toda la instancia en cada valor
-        //retorna false en caso de que algun campo no cumpla con su valor maximo
+        //
         if(!validaNeuronas(instancia.getNeuronasBin()))
             return false;
         if(!validaCapas(instancia.getCapasBin()))

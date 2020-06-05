@@ -64,7 +64,7 @@ public class BitSetTo {
      * @return Bitset(size)
      */
     public BitSet longToBitSet(long value,int size) {
-        BitSet bits = new BitSet();
+        BitSet bits = new BitSet(size);
         int index = 0;
         while (value != 0L) {
             if (value % 2L != 0) {

@@ -187,38 +187,39 @@ public class PhiInstance {
     //
     public int getNeuronas(){
         BitSet aux = this.getNeuronasBin();
-        int nuevo = (int) (((int) convertidor.bitSetToInt(aux)*27f)/23f);
+        int nuevo = (int) convertidor.bitSetToInt(aux);
 
         /**
          * si
-         * 27 es a 23
-         * ?  es a valor
+         * 0---3
+         * 1---4
+         * nuevo---nuevo+3
          */
-        return nuevo;
+        return nuevo+3;
     } 
     public int getCapas(){
         BitSet aux = this.getCapasBin();
         int valor = (int) convertidor.bitSetToInt(aux);
-        int nuevo = (int) ((valor*6f)/5f);
 
         /**
          * si
-         * 6 es a 5
-         * ?  es a valor
+         * 0---1
+         * 1---2
+         * valor----valor+1
          */
-        return nuevo;
+        return valor+1;
     }
     public int getEpocas(){
         BitSet aux = this.getEpocasBin();
         int valor = (int) convertidor.bitSetToInt(aux);
-        int nuevo = (int) ((valor*2500f)/2047f);
 
         /**
          * si
-         * 2500 es a 2047
-         *   ?  es a valor
+         * 0---452
+         * 1---453
+         * 2048---2500
          */
-        return nuevo;
+        return valor+452;
     }
     public Float getLR(){
         BitSet aux = this.getLRBin();
@@ -228,7 +229,7 @@ public class PhiInstance {
          * 400 es a 199
          *   ?  es a valor
          */
-        return new Float( (((valor*400f)/199f)/1000f));
+        return new Float( ((valor+200)/1000f));
     }
     public Float getMomentum(){
         BitSet aux = this.getMomentumBin();
@@ -238,7 +239,7 @@ public class PhiInstance {
          * 400 es a 199
          *   ?  es a valor
          */
-        return new Float((((valor*400f)/199f)/1000f));
+        return new Float( (valor+200)/1000f );
     }
     
     /**
