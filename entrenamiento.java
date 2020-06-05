@@ -22,23 +22,15 @@ class entrenamiento {
         // Utilerias de Algoritmos geneticos
         Genetico ag = new Genetico();
 
-        System.out.println(" Crea poblacion Inicial \n");
         //Generar una poblacion
         poblacion = ag.generarPoblacion(TAM_POBLACION);
-        
-        System.out.println(" Poblacion Inicial");
-        for (PhiInstance instancia : poblacion) {
-            System.out.print(""+instancia.toString()+"\n");
-        }
 
         //Evalua la poblacion Inicial 
         for (PhiInstance instancia : poblacion) {
-            System.out.println("\n Evalua cada individuo ");
             // fitness  = Float
             instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
         }
 
-        System.out.println(" Ordena Poblacion ");
         odenaPoblacion();
 
         for (PhiInstance instancia : poblacion) {
@@ -53,45 +45,38 @@ class entrenamiento {
             // 1) Crear una poblacion PS que seran las mejores n/2 instancias la poblacion P
             ArrayList<PhiInstance> ps = new ArrayList<PhiInstance>();
             for (int i = 0; i < (TAM_POBLACION/2); i++) {
-                System.out.println(" Se toma la poblacion mas sobresaliente ");
                 ps.add( poblacion.get(i) );
             }
             
             // 2) Hacer la cruza de la poblacion P un total de n/2 hijos necesitamos Y 3) colocar esos n/2 hijos en PS 
             // se generan los padres de forma aleatoria
             while (ps.size() < TAM_POBLACION) {
-                System.out.println(" Se crean hijos ");
                 int padre = (int) (Math.random()*(TAM_POBLACION/2));
                 int madre = (int) (Math.random()*(TAM_POBLACION/2));
                 //dentro de la funcion genera Hijo son agregados los hijos resultantes validos
                 ag.generaHijo(ps,padre,madre);
 
             }
-            System.out.println(" Se tienen todos los hijos ");
             
             // Mutacion
             // ahora tenemos una nueva problacion de TAM_POBLACION
-            System.out.println(" Se mutan los hijos ");
             for (int i = (TAM_POBLACION/2)+1; i < TAM_POBLACION ; i++) {
                 PhiInstance hijo = ps.get(i);
                 hijo = ag.mutacion(hijo,ps);
                 ps.set(i, hijo);
             }
-            System.out.println(" Se actualiza la poblacion ");
+
             // 4) Actualizar P = Ps
             poblacion = ps;
-
             // 5) Reevalular los fitness
-            for (PhiInstance instancia : poblacion) {
-                instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
+            for (PhiInstance instancia : poblacion) {          
+                if (instancias.valorFitness != 0) {
+                    instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
+                }
             }
 
             // y ordenar
             odenaPoblacion();
-
-            for (PhiInstance instancia : poblacion) {
-                System.out.print(""+instancia.valorFitness+"\n");
-            }
 
             // Pasa a la siguiente generacion
             generacionActual ++;

@@ -39,7 +39,7 @@ public class Genetico {
         int rl = (int) (Math.random()*200);
         int mom = (int) (Math.random()*200);
 
-        System.out.println("n: "+(neuronas+3)+" c: "+(capas+1)+" e: "+(epocas+452)+" rl: "+((rl+200)/1000f)+" m:"+((mom+200)/1000f) );
+        //System.out.println("n: "+(neuronas+3)+" c: "+(capas+1)+" e: "+(epocas+452)+" rl: "+((rl+200)/1000f)+" m:"+((mom+200)/1000f) );
 
         BitSet ne = conversor.longToBitSet( neuronas,PhiInstance.SIZE_NEURONA );
         BitSet ca = conversor.longToBitSet( capas,PhiInstance.SIZE_CAPAS );
@@ -62,7 +62,6 @@ public class Genetico {
      * @param mad
      */
     public void generaHijo(ArrayList <PhiInstance> poblacion, int pad, int mad){ 
-        System.out.println(" Entra a generar hijo ");
         Validador valida = new Validador();
         // Obtiene el bitSet del padre
         BitSet padre = poblacion.get(pad).valor;
@@ -84,11 +83,11 @@ public class Genetico {
                 hijo2.set( i,padre.get(i) );  
             }
         }if (valida.validaInstanciaCampos(new PhiInstance(hijo1), poblacion) && valida.validaInstanciaCampos(new PhiInstance(hijo2), poblacion) ) {
-            System.out.println(" Hijos Valido ");
+            //System.out.println(" Hijos Valido ");
+        }else{
+            //System.out.println(" Hijos invalido ");
             poblacion.add(new PhiInstance(hijo1));
             poblacion.add(new PhiInstance(hijo2));
-        }else{
-            System.out.println(" Hijos invalido ");
         }
     }
 

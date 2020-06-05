@@ -35,7 +35,7 @@ public class PhiInstance {
     public BitSet valor = new BitSet(35);
 
     //Valor Fitness
-    public Float valorFitness;
+    public Float valorFitness = 0f;
 
     //
     private final BitSetTo convertidor = new BitSetTo();

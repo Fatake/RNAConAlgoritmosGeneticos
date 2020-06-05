@@ -5,6 +5,7 @@ import java.util.BitSet;
  * validador
  */
 public class Validador {
+    private BitSetTo tranformador = new BitSetTo();
     public Validador(){};
 
     /**
@@ -13,20 +14,14 @@ public class Validador {
      * Retorna true si es correcto
      * false si no es una instancia valida
      * @param neuronas
-     * @return
+     * @return *falso* si no es valido
+     * *verdadero* si es valido
      */
     public boolean validaNeuronas(BitSet neuronas){
         if (neuronas.length() != PhiInstance.SIZE_NEURONA) {//Si no tiene el tamaño de las neuronas
             return false;
         }
-        int j = 1,suma = 0;
-        for (int i = 0; i < 5; i++) {
-            if (neuronas.get(i)) {
-                suma += j;
-            }
-            j *= 2;
-        }
-        if (suma > PhiInstance.MAX_NEURONA) {//si la suma binaria es mayor al maximo
+        if (tranformador.bitSettoLong( neuronas ) > PhiInstance.MAX_NEURONA) {
             return false;
         }
         return true;
@@ -38,20 +33,14 @@ public class Validador {
      * Retorna true si es correcto
      * false si no es una instancia valida
      * @param capas
-     * @return
+     * @return *falso* si no es valido
+     * *verdadero* si es valido
      */
     public boolean validaCapas(BitSet capas){
         if (capas.length() != PhiInstance.SIZE_CAPAS) {
             return false;
         }
-        int j = 1,suma = 0;
-        for (int i = 0; i < 5; i++) {
-            if (capas.get(i)) {
-                suma += j;
-            }
-            j *= 2;
-        }
-        if (suma > PhiInstance.MAX_CAPAS) {
+        if (tranformador.bitSettoLong( capas ) > PhiInstance.MAX_NEURONA) {
             return false;
         }
         return true;
@@ -63,20 +52,14 @@ public class Validador {
      * Retorna true si es correcto
      * false si no es una instancia valida
      * @param capas
-     * @return
+     * @return *falso* si no es valido
+     * *verdadero* si es valido
      */
     public boolean validaEpocas(BitSet epocas){
         if (epocas.length() != PhiInstance.SIZE_EPOCAS) {
             return false;
         }
-        int j = 1,suma = 0;
-        for (int i = 0; i < 5; i++) {
-            if (epocas.get(i)) {
-                suma += j;
-            }
-            j *= 2;
-        }
-        if (suma > PhiInstance.MAX_EPOCAS) {
+        if (tranformador.bitSettoLong( epocas ) > PhiInstance.MAX_NEURONA) {
             return false;
         }
         return true;
@@ -88,20 +71,14 @@ public class Validador {
      * Retorna true si es correcto
      * false si no es una instancia valida
      * @param capas
-     * @return
+     * @return *falso* si no es valido
+     * *verdadero* si es valido
      */
     public boolean validaLR(BitSet lr){
         if (lr.length() != PhiInstance.SIZE_LR) {
             return false;
         }
-        int j = 1,suma = 0;
-        for (int i = 0; i < 5; i++) {
-            if (lr.get(i)) {
-                suma += j;
-            }
-            j *= 2;
-        }
-        if (suma > PhiInstance.MAX_LR) {
+        if (tranformador.bitSettoLong( lr ) > PhiInstance.MAX_NEURONA) {
             return false;
         }
         return true;
@@ -112,20 +89,14 @@ public class Validador {
      * Retorna true si es correcto
      * false si no es una instancia valida
      * @param capas
-     * @return
+     * @return *falso* si no es valido
+     * *verdadero* si es valido
      */
     public boolean validaMomentum(BitSet momentum){
         if (momentum.length() != PhiInstance.SIZE_MOMENTUM) {
             return false;
         }
-        int j = 1,suma = 0;
-        for (int i = 0; i < 5; i++) {
-            if (momentum.get(i)) {
-                suma += j;
-            }
-            j *= 2;
-        }
-        if (suma > PhiInstance.MAX_MOMENTUM) {
+        if (tranformador.bitSettoLong( momentum ) > PhiInstance.MAX_NEURONA) {
             return false;
         }
         return true;
@@ -140,7 +111,7 @@ public class Validador {
      * @return *true* en caso de ser valida toda la instancia en cada valor
      * *false* en caso de que algun campo no cumpla con su valor maximo
      */
-    public boolean validaInstanciaCampos(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
+    public boolean validaInstancia(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
         //
         if(!validaNeuronas(instancia.getNeuronasBin()))
             return false;
@@ -157,13 +128,13 @@ public class Validador {
                 return false;
         return true;
     }
-
-    public boolean validarInstanciaRepetida(ArrayList <PhiInstance> poblacion, PhiInstance instancia ){
-        if(poblacion.equals(instancia))
-            return true;       
-        return false;  
-    }
-            
+    
+    /**
+     * 
+     * @param instancia
+     * @return *falso* si no es valido
+     * *verdadero* si es valido
+     */
     public boolean validaInstanciaPhi(PhiInstance instancia){
         if (instancia.valor.length() != PhiInstance.SIZE_INSTANCE) {
             return false;
