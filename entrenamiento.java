@@ -51,10 +51,11 @@ class entrenamiento {
             // se generan los padres de forma aleatoria
             while (ps.size() < TAM_POBLACION) {
                 int padre1 = (int) (Math.random()*ps.size());
-                int padre2 = (int) (Math.random()*ps.size());
+                int madre = (int) (Math.random()*ps.size());
                 //dentro de la funcion genera Hijo son agregados los hijos resultantes validos
-                ag.generaHijo(ps,padre1,padre2);
+                ag.generaHijo(ps,padre1,madre);
             }
+            
             // Mutacion
             // ahora tenemos nuentra problacion de TAM_POBLACION
             for (int i = (TAM_POBLACION/2)+1; i < TAM_POBLACION ; i++) {

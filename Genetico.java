@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.BitSet;
 
-import javax.xml.validation.Validator;
-
+/**
+ * Clase genetico
+ */
 public class Genetico {
     public static ArrayList<PhiInstance> poblacion = new ArrayList<>();
     
@@ -46,13 +47,8 @@ public class Genetico {
         BitSet lr = conversor.intToBitSet( rl,PhiInstance.SIZE_NEURONA );
         BitSet mo = conversor.intToBitSet( mom,PhiInstance.SIZE_NEURONA );
 
-        System.out.println("n: "+conversor.bitSetToInt(ne)+" c: "+conversor.bitSetToInt(ca)+" e: "+conversor.bitSetToInt(ep)+" rl: "+(conversor.bitSetToInt(lr)/1000f)+" m:"+(conversor.bitSetToInt(mo)/1000f) );
-
-        System.out.println(""+RNA.capas(neuronas, capas));
         //Crea un BitSet del tamaño de SIZE_INSTANCE = 35
         PhiInstance aux = new PhiInstance( ne,ca,ep,lr,mo );
-
-        System.out.println(""+aux.toString());
         //Regresa el nuevo individuo
         return aux;
     }
@@ -64,7 +60,6 @@ public class Genetico {
      * @param mad
      */
     public void generaHijo(ArrayList <PhiInstance> poblacion, int pad, int mad){ 
-        PhiInstance auxp = new PhiInstance(new BitSet(PhiInstance.SIZE_INSTANCE));
         Validador valida = new Validador();
         // Obtiene el bitSet del padre
         BitSet padre = poblacion.get(pad).valor;
@@ -85,8 +80,9 @@ public class Genetico {
                 hijo1.set( i,madre.get(i) );
                 hijo2.set( i,padre.get(i) );  
             }
+        }if (valida.validaInstanciaCampos(new PhiInstance(hijo1), poblacion) && valida.validaInstanciaCampos(new PhiInstance(hijo2), poblacion) ) {
+            poblacion.add(new PhiInstance(hijo1));
+            poblacion.add(new PhiInstance(hijo2));
         }
-        poblacion.add(new PhiInstance(hijo1));
-        poblacion.add(new PhiInstance(hijo2));
     }
 }

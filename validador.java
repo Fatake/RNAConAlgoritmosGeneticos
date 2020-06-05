@@ -6,7 +6,7 @@ import java.util.BitSet;
  */
 public class Validador {
     public Validador(){};
-    
+
     /**
      * Valida si el binario es una instancias validas de 
      * neuronas
@@ -131,7 +131,7 @@ public class Validador {
         return true;
     }
     
-    public  boolean validaInstanciaCampos(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
+    public boolean validaInstanciaCampos(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
         //retorna true en caso de ser valida toda la instancia en cada valor
         //retorna false en caso de que algun campo no cumpla con su valor maximo
         if(!validaNeuronas(instancia.getNeuronasBin()))
@@ -150,13 +150,11 @@ public class Validador {
         return true;
     }
 
-    /*public boolean validarInstanciaRepetida(ArrayList <PhiInstance> poblacion, PhiInstance instancia ){
+    public boolean validarInstanciaRepetida(ArrayList <PhiInstance> poblacion, PhiInstance instancia ){
         if(poblacion.equals(instancia))
-            return true;
-        else
-            return false;
-        
-    }*/
+            return true;       
+        return false;  
+    }
             
     public boolean validaInstanciaPhi(PhiInstance instancia){
         if (instancia.valor.length() != PhiInstance.SIZE_INSTANCE) {
