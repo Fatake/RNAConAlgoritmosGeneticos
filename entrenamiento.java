@@ -60,7 +60,7 @@ class entrenamiento {
             // ahora tenemos nuentra problacion de TAM_POBLACION
             for (int i = (TAM_POBLACION/2)+1; i < TAM_POBLACION ; i++) {
                 PhiInstance hijo = ps.get(i);
-                hijo = PhiInstance.mutacion(hijo,ps);
+                hijo = ag.mutacion(hijo,ps);
                 ps.set(i, hijo);
             }
 

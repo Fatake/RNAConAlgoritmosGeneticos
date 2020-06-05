@@ -85,4 +85,30 @@ public class Genetico {
             poblacion.add(new PhiInstance(hijo2));
         }
     }
+
+    /**
+     * funcion mutadora
+     * @param instancia
+     * @return 
+     */
+    public PhiInstance mutacion(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
+        Random r = new Random();
+        if(r.nextDouble() <= FACTOR_MUTACION){
+            PhiInstance aux = new PhiInstance(new BitSet(35));
+            Validador v = new Validador();
+            for(int i=0;i<2;i++){
+                do{
+                    aux=instancia;
+                    //obtiene indice random de 0 a 35
+                    int indice_random=r.nextInt(SIZE_INSTANCE);
+                    //obtiene valor de bit en el indice random
+                    Boolean valor_bit=aux.valor.get(indice_random);
+                    //invierte el valor del bit en el indice random
+                    aux.valor.set(indice_random,!valor_bit);
+                }while(!v.validaInstanciaCampos(aux,poblacion));
+                instancia=aux;
+            }
+        }
+        return instancia;
+    }
 }
