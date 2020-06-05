@@ -133,7 +133,7 @@ public class RNA{
      * @param neuronas
      * @return
      */
-    public static String capas(final int numeroCapas, final int neuronas) {
+    public static String capas(final int neuronas,final int numeroCapas) {
         String buffer = "";
         for (int i = 1; i <= numeroCapas; i++) {
             if (i == 1) {

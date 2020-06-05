@@ -41,15 +41,25 @@ public class PhiInstance {
     //Valor Fitness
     public Float valorFitness;
 
+    //
+    private final BitSetTo convertidor = new BitSetTo();
+
     // Maneja litte endian
     /**
-     * 2a0|2a1|2a2|2a4 
-     *  0   0   0   0
-     * 
+     * Recibe un bitset 
      * @param valor
      */
     public PhiInstance(BitSet valor) {
         this.valor = valor;
+    }
+
+    /**
+     * Constructor que recibe un tamaño
+     * de instancia
+     * @param valor
+     */
+    public PhiInstance(int size){
+        this.valor = new BitSet(size);
     }
 
     /**
@@ -100,8 +110,8 @@ public class PhiInstance {
     public static PhiInstance mutacion(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
         Random r = new Random();
         if(r.nextDouble() <= FACTOR_MUTACION){
-            PhiInstance aux=new PhiInstance(new BitSet(35));
-            validador v=new validador();
+            PhiInstance aux = new PhiInstance(new BitSet(35));
+            validador v = new validador();
             for(int i=0;i<2;i++){
                 do{
                     aux=instancia;
@@ -208,7 +218,7 @@ public class PhiInstance {
     //
     public int getNeuronas(){
         BitSet aux = this.getNeuronasBin();
-        int nuevo = (int) (((int) bitSettoLong(aux)*27f)/23f);
+        int nuevo = (int) (((int) convertidor.bitSetToInt(aux)*27f)/23f);
 
         /**
          * si
@@ -219,7 +229,7 @@ public class PhiInstance {
     } 
     public int getCapas(){
         BitSet aux = this.getCapasBin();
-        int valor = (int) bitSettoLong(aux);
+        int valor = (int) convertidor.bitSetToInt(aux);
         int nuevo = (int) ((valor*6f)/5f);
 
         /**
@@ -231,7 +241,7 @@ public class PhiInstance {
     }
     public int getEpocas(){
         BitSet aux = this.getEpocasBin();
-        int valor = (int) bitSettoLong(aux);
+        int valor = (int) convertidor.bitSetToInt(aux);
         int nuevo = (int) ((valor*2500f)/2047f);
 
         /**
@@ -243,7 +253,7 @@ public class PhiInstance {
     }
     public Float getLR(){
         BitSet aux = this.getLRBin();
-        int valor = (int) bitSettoLong(aux);
+        int valor = (int) convertidor.bitSetToInt(aux);
         /**
          * si
          * 400 es a 199
@@ -253,7 +263,7 @@ public class PhiInstance {
     }
     public Float getMomentum(){
         BitSet aux = this.getMomentumBin();
-        int valor = (int) bitSettoLong(aux);
+        int valor = (int) convertidor.bitSetToInt(aux);
         /**
          * si
          * 400 es a 199
@@ -271,74 +281,5 @@ public class PhiInstance {
         Float learningRate = this.getLR();
         Float momentum = this.getMomentum();
         return "n/c: "+neuronasCapas+" e: "+epocas+" lr: "+learningRate+" m: "+momentum;
-    }
-
-    /**
-     * Retorna en forma String 01
-     * el BitSet
-     * @param bits
-     * @return
-     */
-    public static String bitSetToStr(BitSet bits){
-        int size = bits.length();
-        String buffer = "";
-        for (int i = 0; i < size; i++) {
-            if (bits.get(i)) {
-                buffer += "1";
-            } else {
-                buffer += "0";
-            }
-        }
-        return buffer;
-    }
-
-    /**
-     * String "01001" to Bitset
-     * 
-     * @param bits
-     * @param size
-     * @return
-     */
-    public static BitSet strToBitSet(String bits,int size){
-        BitSet aux = new BitSet(size);
-        for (int i = 0; i < bits.length(); i++) {
-            if (bits.charAt(i) == '1') {
-                aux.set(i);
-            }else{
-                aux.set(i, false);
-            }
-        }
-        return aux;
-    }
-
-    /**
-     * BitSettoLong
-     * @param bits
-     * @return
-     */
-    public long bitSettoLong(BitSet bits) {
-        long value = 0L;
-        for (int i = 0; i < bits.length(); ++i) {
-            value += bits.get(i) ? (1L << i) : 0L;
-        }
-        return value;
-    }
-
-    /**
-     * longToBitSet
-     * @param value
-     * @return
-     */
-    public BitSet longToBitSet(long value) {
-        BitSet bits = new BitSet();
-        int index = 0;
-        while (value != 0L) {
-            if (value % 2L != 0) {
-                bits.set(index);
-            }
-            ++index;
-            value = value >>> 1;
-        }
-        return bits;
-    }
+    }   
 }

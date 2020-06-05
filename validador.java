@@ -1,12 +1,12 @@
-
 import java.util.ArrayList;
 import java.util.BitSet;
 
 /**
  * validador
  */
-public class validador {
-    public validador(){};
+public class Validador {
+    public Validador(){};
+    
     /**
      * Valida si el binario es una instancias validas de 
      * neuronas
