@@ -18,9 +18,6 @@ public class Validador {
      * *verdadero* si es valido
      */
     public boolean validaNeuronas(BitSet neuronas){
-        if (neuronas.length() != PhiInstance.SIZE_NEURONA) {//Si no tiene el tamaño de las neuronas
-            return false;
-        }
         if (tranformador.bitSettoLong( neuronas ) > PhiInstance.MAX_NEURONA) {
             return false;
         }
@@ -37,9 +34,6 @@ public class Validador {
      * *verdadero* si es valido
      */
     public boolean validaCapas(BitSet capas){
-        if (capas.length() != PhiInstance.SIZE_CAPAS) {
-            return false;
-        }
         if (tranformador.bitSettoLong( capas ) > PhiInstance.MAX_NEURONA) {
             return false;
         }
@@ -56,9 +50,6 @@ public class Validador {
      * *verdadero* si es valido
      */
     public boolean validaEpocas(BitSet epocas){
-        if (epocas.length() != PhiInstance.SIZE_EPOCAS) {
-            return false;
-        }
         if (tranformador.bitSettoLong( epocas ) > PhiInstance.MAX_NEURONA) {
             return false;
         }
@@ -75,9 +66,6 @@ public class Validador {
      * *verdadero* si es valido
      */
     public boolean validaLR(BitSet lr){
-        if (lr.length() != PhiInstance.SIZE_LR) {
-            return false;
-        }
         if (tranformador.bitSettoLong( lr ) > PhiInstance.MAX_NEURONA) {
             return false;
         }
@@ -93,9 +81,6 @@ public class Validador {
      * *verdadero* si es valido
      */
     public boolean validaMomentum(BitSet momentum){
-        if (momentum.length() != PhiInstance.SIZE_MOMENTUM) {
-            return false;
-        }
         if (tranformador.bitSettoLong( momentum ) > PhiInstance.MAX_NEURONA) {
             return false;
         }
@@ -112,8 +97,7 @@ public class Validador {
      * *false* en caso de que algun campo no cumpla con su valor maximo
      */
     public boolean validaInstancia(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
-        //
-        if(!validaNeuronas(instancia.getNeuronasBin()))
+        if(!validaNeuronas(instanci0a.getNeuronasBin()))
             return false;
         if(!validaCapas(instancia.getCapasBin()))
             return false;
