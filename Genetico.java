@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Random;
 
 /**
  * Clase genetico
  */
 public class Genetico {
-    public static ArrayList<PhiInstance> poblacion = new ArrayList<>();
+    //Factor de mutación
+    public static final float FACTOR_MUTACION = 0.2f;
     
-    public Genetico(){
-
-    }
+    public Genetico(){ };
 
     /**
      * Funcion que genera una Poblacion de N individuos 
@@ -94,19 +94,19 @@ public class Genetico {
     public PhiInstance mutacion(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
         Random r = new Random();
         if(r.nextDouble() <= FACTOR_MUTACION){
-            PhiInstance aux = new PhiInstance(new BitSet(35));
+            PhiInstance aux = new PhiInstance(new BitSet(PhiInstance.SIZE_INSTANCE));
             Validador v = new Validador();
-            for(int i=0;i<2;i++){
+            for(int i=0; i<2; i++){
                 do{
-                    aux=instancia;
+                    aux = instancia;
                     //obtiene indice random de 0 a 35
-                    int indice_random=r.nextInt(SIZE_INSTANCE);
+                    int indiceRandom = r.nextInt(PhiInstance.SIZE_INSTANCE);
                     //obtiene valor de bit en el indice random
-                    Boolean valor_bit=aux.valor.get(indice_random);
+                    Boolean valorBit = aux.valor.get(indiceRandom);
                     //invierte el valor del bit en el indice random
-                    aux.valor.set(indice_random,!valor_bit);
-                }while(!v.validaInstanciaCampos(aux,poblacion));
-                instancia=aux;
+                    aux.valor.set( indiceRandom, !valorBit );
+                }while(!v.validaInstanciaCampos( aux, poblacion ));
+                instancia = aux;
             }
         }
         return instancia;

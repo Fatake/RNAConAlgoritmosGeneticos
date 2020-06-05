@@ -1,7 +1,6 @@
-
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.Random;
+
 
 /**
  * Clase donde se define la forma de una instancia
@@ -34,9 +33,6 @@ public class PhiInstance {
 
     // Valor de la instancia
     public BitSet valor = new BitSet(35);
-
-    //Factor de mutación
-    public static final float FACTOR_MUTACION = 0.2f;
 
     //Valor Fitness
     public Float valorFitness;
