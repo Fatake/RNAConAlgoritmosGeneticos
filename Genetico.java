@@ -39,7 +39,7 @@ public class Genetico {
         int rl = (int) (Math.random()*200);
         int mom = (int) (Math.random()*200);
 
-        System.out.println("n: "+neuronas+" c: "+capas+" e: "+epocas+" rl: "+(rl/1000f)+" m:"+(mom/1000f) );
+        //System.out.println("n: "+neuronas+" c: "+capas+" e: "+epocas+" rl: "+(rl/1000f)+" m:"+(mom/1000f) );
 
         BitSet ne = conversor.intToBitSet( neuronas,PhiInstance.SIZE_NEURONA );
         BitSet ca = conversor.intToBitSet( capas,PhiInstance.SIZE_CAPAS );
