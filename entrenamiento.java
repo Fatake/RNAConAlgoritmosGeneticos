@@ -9,7 +9,7 @@ import java.util.Collections;
 class entrenamiento {
     // Variable que almacena la poblacio
     public static final int GENERACIONES = 20;
-    public static final int TAM_POBLACION = 4;
+    public static final int TAM_POBLACION = 20;
     public static ArrayList<PhiInstance> poblacion = new ArrayList<>(TAM_POBLACION);
     /**
      * funcion Main del programa
@@ -50,8 +50,8 @@ class entrenamiento {
             // 2) Hacer la cruza de la poblacion P un total de n/2 hijos necesitamos Y 3) colocar esos n/2 hijos en PS 
             // se generan los padres de forma aleatoria
             while (ps.size() < TAM_POBLACION) {
-                int padre = (int) (Math.random()*ps.size());
-                int madre = (int) (Math.random()*ps.size());
+                int padre = (int) (Math.random()*(TAM_POBLACION/2));
+                int madre = (int) (Math.random()*(TAM_POBLACION/2));
                 //dentro de la funcion genera Hijo son agregados los hijos resultantes validos
                 ag.generaHijo(ps,padre,madre);
             }
@@ -81,7 +81,7 @@ class entrenamiento {
 
             // Pasa a la siguiente generacion
             generacionActual ++;
-            System.out.println(""+poblacion.get(0).toString());
+            System.out.println("Mejor: "+poblacion.get(0).toString());
         }
         //lista final
         odenaPoblacion();
