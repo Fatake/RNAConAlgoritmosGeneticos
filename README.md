@@ -3,21 +3,29 @@
 Archivos:
 1. /Documentacion
 	- DocumentacionProyectofinal
-2. /Ejemplo
-	- algoritmoGenetivo.java
-	- ejemploBitSet.java
-3. weka.jar :Archivo ejectuable por la maquina virtual de java, contiene todas las bibliotecas de weka
-4. RNA.java : Clase que entrena una rna dado unos parámetros
-5. PhilInstance.java :clase que almacena cada instancia de un individuo en forma binaria
-6. entrenamiento.java :Clase principal que contiene el main, en ella se hace el algoritmo genetico
-7. validador.java :Clase con conjunto de funciones que validan instancias PhiInstance
-8. ForestFire.arff :Base de datos 
-9. compilarParaRNA.bat :Archivo ejectutable por lotes de windows
+2. weka.jar :Archivo ejectuable por la maquina virtual de java, contiene todas las bibliotecas de weka
+3. Validador.java: Clase que valida si la instancia PhiInstance es valida tanto en bit como en una lista.
+4. RNA.java: Clase que dado unos parametros de una red neuronal, trabaja y genera un modelo. 
+5. PhiInstance.java: Clase que almace de forma binaria parametros de configuracion de una RNA.
+6. Genetico.java: Clase que se encarga de las utilerias de un algoritmo genetico, como mutacion, generar poblacion, generar hijos.
+7. Entrenamiento.java: Clase principal que se encarga de llevar ela lgoritmo genetico para la busqueda de parametros de una RNA
+8. BitSetTo.java: Clase que tiene utilidades de conversion entre BitSet a string, float, long e Int.
+9. compilaEjecuta.sh/.bat : Script ejecutable que compila y ejecuta el programa
 
 ------------
 
-### RNA.java
-Clase de java que gestiona el uso de las bibliotecas de **weka.jar**
-Tambien tiene entre comentarios un método main para pruebas.
-El ejecutable por lotes para windows **compilarParaRNA.bat** s
-olo va a funcionar si no estan comentadas las lineas del main dentro de **rna.java**
+## Compilar
+##### Linux
+El programa tiene un script ejecutable llamado **compilaEjecuta.sh** un script que funciona para linux. Se ejecuta asi:
+`chmod +x compilaEjecuta.sh`
+`./compilaEjecuta.sh`
+
+##### Windows
+Cambiar la extension del script **compilaEjecuta.sh** a **compilaEjecuta.bat**
+Dar doble click en el ejecutable por lotes de windows.
+
+##### Comandos
+`javac -cp ".;weka.jar" RNA.java`
+`javac entrenamiento.java`
+`java -Xmx8224M -Xms8224M -XX:ActiveProcessorCount=255 --add-opens=java.base/java.lang=ALL-UNNAMED -cp ".;weka.jar" entrenamiento > salida.txt`
+

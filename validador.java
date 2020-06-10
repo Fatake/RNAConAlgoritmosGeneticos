@@ -97,7 +97,7 @@ public class Validador {
      * *false* en caso de que algun campo no cumpla con su valor maximo
      */
     public boolean validaInstancia(PhiInstance instancia,ArrayList <PhiInstance> poblacion){
-        if(!validaNeuronas(instanci0a.getNeuronasBin()))
+        if(!validaNeuronas(instancia.getNeuronasBin()))
             return false;
         if(!validaCapas(instancia.getCapasBin()))
             return false;

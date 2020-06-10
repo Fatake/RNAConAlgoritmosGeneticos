@@ -9,7 +9,7 @@ import java.util.Collections;
 class entrenamiento {
     // Variable que almacena la poblacio
     public static final int GENERACIONES = 5;
-    public static final int TAM_POBLACION = 4;
+    public static final int TAM_POBLACION = 6;
     public static ArrayList<PhiInstance> poblacion = new ArrayList<>(TAM_POBLACION);
     /**
      * funcion Main del programa
@@ -70,9 +70,10 @@ class entrenamiento {
             poblacion = ps;
             // 5) Reevalular los fitness
             for (PhiInstance instancia : poblacion) {          
-                if (instancias.valorFitness != 0) {
+                if (instancia.valorFitness != 0) {
                     instancia.valorFitness =  naturalNetwork.entrenar(instancia) ;
                 }
+                System.out.println(""+instancia.valorFitness);
             }
 
             // y ordenar
@@ -85,7 +86,7 @@ class entrenamiento {
         //lista final
         odenaPoblacion();
         // retorna el mejor individuo
-        System.out.println(""+poblacion.get(0).toString());
+        System.out.println("Mejor: "+poblacion.get(0).toString());
     }
 
     /**

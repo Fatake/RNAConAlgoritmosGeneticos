@@ -82,13 +82,14 @@ public class Genetico {
                 hijo1.set( i,madre.get(i) );
                 hijo2.set( i,padre.get(i) );  
             }
-        }if (valida.validaInstanciaCampos(new PhiInstance(hijo1), poblacion) && valida.validaInstanciaCampos(new PhiInstance(hijo2), poblacion) ) {
-            //System.out.println(" Hijos Valido ");
+        }if (valida.validaInstancia(new PhiInstance(hijo1), poblacion) && valida.validaInstancia(new PhiInstance(hijo2), poblacion) ) {
+            // System.out.println(" Hijos Valido ");
         }else{
-            //System.out.println(" Hijos invalido ");
-            poblacion.add(new PhiInstance(hijo1));
-            poblacion.add(new PhiInstance(hijo2));
+            // System.out.println(" Hijos invalido ");
+            
         }
+        poblacion.add(new PhiInstance(hijo1));
+        poblacion.add(new PhiInstance(hijo2));
     }
 
     /**
@@ -110,7 +111,7 @@ public class Genetico {
                     Boolean valorBit = aux.valor.get(indiceRandom);
                     //invierte el valor del bit en el indice random
                     aux.valor.set( indiceRandom, !valorBit );
-                }while(!v.validaInstanciaCampos( aux, poblacion ));
+                }while(!v.validaInstancia( aux, poblacion ));
                 instancia = aux;
             }
         }
